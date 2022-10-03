@@ -219,7 +219,6 @@ venv/*
 .idea
 .idea/
 .idea/*
-staticfiles
 #.docker
 #.docker/
 #.docker/*
