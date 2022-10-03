@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if success %}
+    {{ user.username }}, your account is confirmed!
+    <p>Gp to the <a href="/login">Login</a>page</p>
+{% else %}
+    Error, invalid token!
+{% endif %}
+</body>
+</html>

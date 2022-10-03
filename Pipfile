@@ -9,6 +9,8 @@ python-dotenv = "*"
 psycopg2 = "*"
 pillow = "*"
 django-allauth = "*"
+django-email-verification = "*"
+django-verify-email = "*"
 
 [dev-packages]
 
