@@ -48,4 +48,4 @@ def confirm_needed(request, id):
     if user.is_active == True:
         return redirect('/login')
     else:
-        return render(request, 'confirm_needed.html',)
+        return render(request, 'confirm_needed.html', )

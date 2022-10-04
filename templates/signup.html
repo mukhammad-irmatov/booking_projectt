@@ -1,23 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+
 </head>
 <body>
-<form action="" method="post">
-
-    {% csrf_token %}
-    {% if message %}
-        <p>{{ message }}</p>
-    {% else %}
-    <input type="text" name='name' placeholder="First Name"><br>
-    <input type="text" name='username' placeholder="Username"><br>
-    <input type="email" name='email' placeholder="E-mail"><br>
-    <input type="password" name='password1' placeholder="Password"><br>
-    <input type="password" name='password2' placeholder="Confirm Password"><br>
-    <input type="submit">
-    {% endif %}
-</form>
+<div class="wrapper">
+    <h2>Registration</h2>
+    <form action="#" method="post">
+        {% csrf_token %}
+        {% if message %}
+            <p>{{ message }}</p>
+        {% else %}
+            <div class="input-box">
+                <input type="text" name="name" placeholder="Enter your name">
+            </div>
+            <div class="input-box">
+                <input type="text" name="username" placeholder="Enter your username">
+            </div>
+            <div class="input-box">
+                <input type="text" name="email" placeholder="Enter your email">
+            </div>
+            <div class="input-box">
+                <input type="password" name="password1" placeholder="Create password">
+            </div>
+            <div class="input-box">
+                <input type="password" name="password2" placeholder="Confirm password">
+            </div>
+            <div class="policy">
+                <input type="checkbox">
+                <h3>I accept all terms & condition</h3>
+            </div>
+            <div class="input-box button">
+                <input type="submit" value="Register Now">
+            </div>
+            <div class="text">
+                <h3>Already have an account? <a href="#">Login now</a></h3>
+            </div>
+        {% endif %}
+    </form>
+</div>
 </body>
 </html>

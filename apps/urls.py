@@ -1,6 +1,6 @@
-from django.urls import include, path
-
+from django.urls import path, include
 
 urlpatterns = [
-    path('user/', include(('users.urls' ), 'users')),
+    path('', include('pages.urls')),
+    path('user/', include('users.urls')),
 ]
