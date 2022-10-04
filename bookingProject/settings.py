@@ -157,9 +157,9 @@ EMAIL_MULTI_USER = True
 
 # For Django Email Backend
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = os.environ.get("email_host")
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'bscoders@gmail.com'
-EMAIL_HOST_PASSWORD = 'izqrplsvfrawscfk'
+EMAIL_HOST_USER = os.environ.get("email_host_user")
+EMAIL_HOST_PASSWORD = os.environ.get("email_host_password")
 EMAIL_USE_TLS = True
 
