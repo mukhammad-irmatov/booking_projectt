@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     # local apps
     "users",
     "pages",
+    "dashboard",
 ]
 
 MIDDLEWARE = [
