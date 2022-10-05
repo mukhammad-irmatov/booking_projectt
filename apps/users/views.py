@@ -40,7 +40,7 @@ def my_functional_view(request):
             send_email(user)
             return redirect('users:confirm_needed', user.id)
 
-    return render(request, 'signup.html', {'message': message})
+    return render(request, 'signup/signup.html', {'message': message})
 
 
 def confirm_needed(request, id):
@@ -48,4 +48,4 @@ def confirm_needed(request, id):
     if user.is_active == True:
         return redirect('/login')
     else:
-        return render(request, 'confirm_needed.html', )
+        return render(request, 'signup/confirm_needed.html', )
