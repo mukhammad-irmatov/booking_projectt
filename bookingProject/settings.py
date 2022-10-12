@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'django_email_verification',
+    'phone_field',
 
     # local apps
     "users",

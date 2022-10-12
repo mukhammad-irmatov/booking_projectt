@@ -1,5 +1,4 @@
 from django.db import models
-from phone_field import PhoneField
 
 
 # Create your models here.
@@ -8,7 +7,7 @@ from phone_field import PhoneField
 class Contact(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField(blank=True, null=True)
-    phone = PhoneField(max_length=9, default='94', blank=False, unique=True, help_text='Contact phone number')
+    phone = models.CharField(max_length=9, default='94', blank=False, unique=True, )
     message = models.TextField()
 
     def __str__(self):

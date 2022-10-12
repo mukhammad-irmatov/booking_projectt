@@ -34,22 +34,11 @@ class Contact(View):
         context = {'form': contact_form}
         return render(request, 'pages/contact.html', context)
 
-    def post(self, request):
-        contact_form = ContactForm(data=request.POST)
-        if contact_form.is_valid():
-            name = request.POST['name']
-            email = request.POST['email']
-            phone = request.POST['phone']
-            message = request.POST['message']
-
-            user_message = Contact.objects.create(
-                name=name,
-                email=email,
-                phone=phone,
-                message=message,
-            )
-            user_message.save()
-            return redirect('contact')
-        else:
-            context = {'form': contact_form}
-            return render(request, 'pages/contact.html', context)
+    def post(request):
+        if request.method == "POST":
+            contact_form = ContactForm()
+            if contact_form.is_valid():
+                contact_form.save()
+            else:
+                context = {'form': contact_form}
+                return render(request, 'pages/contact.html', context)
