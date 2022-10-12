@@ -34,9 +34,9 @@ class Contact(View):
         context = {'form': contact_form}
         return render(request, 'pages/contact.html', context)
 
-    def post(request):
+    def post(self, request):
         if request.method == "POST":
-            contact_form = ContactForm()
+            contact_form = ContactForm(request.POST)
             if contact_form.is_valid():
                 contact_form.save()
             else:
