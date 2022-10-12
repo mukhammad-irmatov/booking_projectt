@@ -39,6 +39,7 @@ class Contact(View):
             contact_form = ContactForm(request.POST)
             if contact_form.is_valid():
                 contact_form.save()
+                return redirect('home')
             else:
                 context = {'form': contact_form}
                 return render(request, 'pages/contact.html', context)
