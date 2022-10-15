@@ -43,7 +43,7 @@ def my_functional_view(request):
 
 
 def confirm_needed(request, id):
-    user = UserForm.objects.get(id=id)
+    user = CustomUser.objects.get(id=id)
     if user.is_active == True:
         return redirect('/login')
     else:
