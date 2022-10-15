@@ -12,7 +12,7 @@ def my_functional_view(request):
 
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
-        email = request.POST['email']
+
         phone = request.POST['phone']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
@@ -22,10 +22,6 @@ def my_functional_view(request):
             message = 'the number is small, the number should be 12'
         elif UserForm.objects.filter(phone=phone):
             message = 'This Phone is already taken'
-        elif len(email) < 6:
-            message = 'Please enter true email address'
-        elif UserForm.objects.filter(email=email):
-            message = 'Your have already an account according to your email address'
         elif len(password1) < 6:
             message = 'The password must contain 6 symbols'
         elif password1 != password2:
@@ -35,7 +31,6 @@ def my_functional_view(request):
                 first_name=first_name,
                 last_name=last_name,
                 phone=phone,
-                email=email,
                 password=make_password(password1),
 
             )

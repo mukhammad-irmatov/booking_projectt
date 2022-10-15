@@ -44,7 +44,6 @@ phone_regex = RegexValidator(
 
 class CustomUser(AbstractUser):
     username = None
-    email = models.EmailField(('email address'))
 
     phone = models.CharField(max_length=12, validators=[phone_regex], unique=True, blank=True, null=True, default=None)
     is_active = models.BooleanField(default=True)
