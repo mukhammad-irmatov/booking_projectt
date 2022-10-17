@@ -1,13 +1,15 @@
+from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
+from django.views import View
 from apps.users.forms import UserForm
 from apps.users.models import CustomUser
-from django_email_verification import send_email
 from django.contrib.auth.hashers import make_password, check_password
 
 
 # Create your views here.
 
-def my_functional_view(request):
+def register(request):
     message = ''
     if request.method == "POST":
 
@@ -16,8 +18,8 @@ def my_functional_view(request):
         phone = request.POST['phone']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
-        if len(first_name) < 5:
-            message = 'Your username is to short'
+        if len(first_name) < 3:
+            message = 'Your first name  is to short'
         elif len(phone) < 12:
             message = 'the number is small, the number should be 12'
         elif CustomUser.objects.filter(phone=phone):
@@ -36,15 +38,27 @@ def my_functional_view(request):
             )
             user.is_active = False
             user.is_staff = False
-            send_email(user)
-            return redirect('users:confirm_needed', user.id)
+            user.save()
+            return redirect('users:login')
 
     return render(request, 'signup/signup.html', {'message': message})
 
 
-def confirm_needed(request, id):
-    user = CustomUser.objects.get(id=id)
-    if user.is_active == True:
-        return redirect('/login')
-    else:
-        return render(request, 'signup/confirm_needed.html', )
+class LoginView(View):
+
+    def get(self, request):
+        login_form = AuthenticationForm()
+        context = {'form': login_form}
+        return render(request, 'registration/login.html', context)
+
+    def post(self, request):
+        login_form = AuthenticationForm(data=request.POST)
+
+        if login_form.is_valid():
+            user = login_form.get_user()
+            login(request, user)
+
+            return redirect('home')
+        else:
+            context = {'form': login_form}
+        return render(request, 'registration/login.html', context)

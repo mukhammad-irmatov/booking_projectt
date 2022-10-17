@@ -1,9 +1,10 @@
 from django.urls import path
-from apps.users.views import my_functional_view, confirm_needed
+from apps.users.views import register, LoginView
 
 app_name = 'users'
 
 urlpatterns = [
-    path('signup/', my_functional_view, name='signup'),
-    path('confirm_needed/<int:id>/', confirm_needed, name='confirm_needed'),
+    path('signup/', register, name='signup'),
+    path('login/', LoginView.as_view(), name='login'),
+
 ]
