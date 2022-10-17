@@ -1,4 +1,5 @@
-from django.contrib.auth import login
+from django.contrib import messages
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.views import View
@@ -52,13 +53,19 @@ class LoginView(View):
         return render(request, 'registration/login.html', context)
 
     def post(self, request):
-        login_form = AuthenticationForm(data=request.POST)
-
-        if login_form.is_valid():
-            user = login_form.get_user()
-            login(request, user)
-
-            return redirect('home')
-        else:
-            context = {'form': login_form}
-        return render(request, 'registration/login.html', context)
+        if request.method == "POST":
+            form = UserForm(self.request, data=request.POST)
+            if form.is_valid():
+                phone = form.cleaned_data.get('phone')
+                password = form.cleaned_data.get('password')
+                user = authenticate(phone=phone, password=password)
+                if user is not None:
+                    login(request, user)
+                    messages.info(request, f"You are now logged in as {request.user}.")
+                    return redirect("home")
+                else:
+                    messages.error(request, "Invalid username or password.")
+            else:
+                messages.error(request, "Invalid username or password.")
+        form = UserForm()
+        return render(request=request, template_name="registration/login.html", context={"login_form": form})
