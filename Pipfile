@@ -11,6 +11,9 @@ pillow = "*"
 django-allauth = "*"
 django-email-verification = "*"
 django-verify-email = "*"
+django-phonenumbers = "*"
+django-phonenumber-field = "*"
+django-phone-field = "*"
 
 [dev-packages]
 

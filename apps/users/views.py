@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
-from apps.users.models import User
+from apps.users.forms import UserForm
 from django_email_verification import send_email
-from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password, check_password
 
 
@@ -11,29 +10,34 @@ def my_functional_view(request):
     message = ''
     if request.method == "POST":
 
-        username = request.POST['username']
-        name = request.POST['name']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
         email = request.POST['email']
+        phone = request.POST['phone']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
-        if len(username) < 6:
+        if len(first_name) < 5:
             message = 'Your username is to short'
-        elif User.objects.filter(username=username):
-            message = 'This username is already taken'
+        elif len(phone) < 12:
+            message = 'the number is small, the number should be 12'
+        elif UserForm.objects.filter(phone=phone):
+            message = 'This Phone is already taken'
         elif len(email) < 6:
             message = 'Please enter true email address'
-        elif User.objects.filter(email=email):
+        elif UserForm.objects.filter(email=email):
             message = 'Your have already an account according to your email address'
         elif len(password1) < 6:
             message = 'The password must contain 6 symbols'
         elif password1 != password2:
             message = "The password don't match"
         else:
-            user = get_user_model().objects.create(
-                first_name=name,
-                username=username,
+            user = UserForm.objects.create(
+                first_name=first_name,
+                last_name=last_name,
+                phone=phone,
+                email=email,
                 password=make_password(password1),
-                email=email
+
             )
             user.is_active = False
             user.is_staff = False
@@ -44,7 +48,7 @@ def my_functional_view(request):
 
 
 def confirm_needed(request, id):
-    user = User.objects.get(id=id)
+    user = UserForm.objects.get(id=id)
     if user.is_active == True:
         return redirect('/login')
     else:
