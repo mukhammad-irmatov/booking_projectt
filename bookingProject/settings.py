@@ -139,29 +139,6 @@ STATICFILES_FINDERS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+LOGIN_REDIRECT_URL = "home"
 
 AUTH_USER_MODEL = "users.CustomUser"
-
-
-def verified_callback(user):
-    user.is_active = True
-
-
-EMAIL_VERIFIED_CALLBACK = verified_callback
-EMAIL_FROM_ADDRESS = 'noreply@aliasaddress.com'
-EMAIL_MAIL_SUBJECT = 'Confirm your email, {{ user.username }}'
-EMAIL_MAIL_HTML = 'mail_body.html'
-EMAIL_MAIL_PLAIN = 'mail_body.txt'
-EMAIL_MAIL_TOKEN_LIFE = 60 * 60
-EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
-EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000'
-EMAIL_MULTI_USER = True
-
-# For Django Email Backend
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ.get("email_host")
-EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get("email_host_user")
-EMAIL_HOST_PASSWORD = os.environ.get("email_host_password")
-EMAIL_USE_TLS = True
-
