@@ -61,11 +61,11 @@ class LoginView(View):
                 user = authenticate(phone=phone, password=password)
                 if user is not None:
                     login(request, user)
-                    messages.info(request, f"You are now logged in as {request.user}.")
+                    messages.info(request, "You are now logged in as.")
                     return redirect("home")
                 else:
-                    messages.error(request, "Invalid username or password.")
+                    messages.error(request, "Invalid phone or password.")
             else:
-                messages.error(request, "Invalid username or password.")
+                messages.error(request, "Invalid phone or password.")
         form = UserForm()
         return render(request=request, template_name="registration/login.html", context={"login_form": form})
