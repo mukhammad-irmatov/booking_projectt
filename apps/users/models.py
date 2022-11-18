@@ -37,22 +37,25 @@ class CustomUserManager(BaseUserManager):
 
 
 phone_regex = RegexValidator(
-    regex=r'^998[0-9]{9}$',
-    message="Phone number must be entered in the format: '998 [XX] [XXX XX XX]'. Up to 12 digits allowed."
+    regex=r'^+998[0-9]{9}$',
+    message="Phone number must be entered in the format: '+998 [XX] [XXX XX XX]'. Up to 13 digits allowed."
 )
 
 
-class CustomUser(AbstractUser):
+class User(AbstractUser):
+
+    class User_roles(models.TextChoices):
+        ordinary_user = "ordinary", "Ordinary"
+        client_user = "client", "Client"
+
+    user_role = models.CharField(max_length=10,
+                                 choices=User_roles.choices,
+                                 default=User_roles.ordinary_user
+                                 )
+    phone = models.CharField(max_length=13, validators=[phone_regex], unique=True)
+    is_verified = models.BooleanField(default=False)
     username = None
-
-    phone = models.CharField(max_length=12, validators=[phone_regex], unique=True, blank=True, null=True, default=None)
-    is_active = models.BooleanField(default=True)
-
-<<<<<<< HEAD
-=======
-
     USERNAME_FIELD = 'phone'
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
->>>>>>> 93e9b4f59f854f3e866f5fa354110e50ff9c9bff

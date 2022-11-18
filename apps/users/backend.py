@@ -4,7 +4,6 @@ from .models import User
 
 class EmailOrPhoneModelBackend(ModelBackend):
 
-
     def authenticate(self, username=None, password=None):
         if '@' in username:
             kwargs = {'email': username}

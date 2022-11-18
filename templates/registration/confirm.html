@@ -13,10 +13,7 @@
     <form action="" method="post">
         {% csrf_token %}
         <div class="input-box">
-            <input type="tel" name="phone" placeholder="Telefon raqamingizni kiriting">
-        </div>
-        <div class="input-box">
-            <input type="password" name="password" placeholder="parolingizni kiriting">
+            <input type="text" name="code" placeholder="Tasdiqlash kodini kiriting!">
         </div>
         <div class="input-box button">
             <button type="submit"
@@ -24,18 +21,6 @@
                 Login
             </button>
         </div>
-        <div class="text">
-            <h3>Ro'yhatdan o'tmoqchimisiz? <a href="{% url 'users:signup' %}">Ro'yhatdan o'tish</a></h3>
-        </div>
-
-        {% if form.non_field_errors %}
-    <ul class='form-errors'>
-        {% for error in form.non_field_errors %}
-            <li>{{ error }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
     </form>
 </div>
 </body>
