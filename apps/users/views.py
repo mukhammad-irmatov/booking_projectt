@@ -20,7 +20,7 @@ def register(request):
         password1 = request.POST['password1']
         password2 = request.POST['password2']
         if len(first_name) < 3:
-            message = 'Your first name  is to short'
+            message = 'Your first  name  is to short'
         elif len(phone) < 12:
             message = 'the number is small, the number should be 12'
         elif CustomUser.objects.filter(phone=phone):
@@ -46,26 +46,23 @@ def register(request):
 
 
 class LoginView(View):
-
     def get(self, request):
         login_form = AuthenticationForm()
         context = {'form': login_form}
-        return render(request, 'registration/login.html', context)
+
+        return render(request, "registration/login.html", context)
 
     def post(self, request):
-        if request.method == "POST":
-            form = UserForm(self.request, data=request.POST)
-            if form.is_valid():
-                phone = form.cleaned_data.get('phone')
-                password = form.cleaned_data.get('password')
-                user = authenticate(phone=phone, password=password)
-                if user is not None:
-                    login(request, user)
-                    messages.info(request, f"You are now logged in as {request.user}.")
-                    return redirect("home")
-                else:
-                    messages.error(request, "Invalid username or password.")
-            else:
-                messages.error(request, "Invalid username or password.")
-        form = UserForm()
-        return render(request=request, template_name="registration/login.html", context={"login_form": form})
+        login_form = AuthenticationForm(data=request.POST)
+
+        if login_form.is_valid():
+            user = login_form.get_user()
+            login(request, user)
+
+            messages.success(request, "You have successfully logged in.")
+
+            return redirect('home')
+        else:
+            context = {'form': login_form}
+
+        return render(request, 'pages/index.html', context)
